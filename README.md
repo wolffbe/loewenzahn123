@@ -1,3 +1,123 @@
+# Löwenzahn QuickTime-Fix (Windows 10/11)
+
+Bringt die frühen **Löwenzahn**-CD-ROMs (Teile **1–3**, Terzio / Tivola, Macromedia
+Director) unter 64-Bit-Windows 10/11 zum Starten, wo sie sonst mit folgender
+Meldung den Dienst verweigern:
+
+> *„Auf diesem Computer ist keine oder die falsche Version von QuickTime für
+> Windows installiert. Die Videos auf dieser CD-ROM können deshalb nicht
+> abgespielt werden.“*
+
+Diese Titel prüfen fest auf die **QuickTime-2.x**-Laufzeitumgebung, mit der sie
+ausgeliefert wurden, und lehnen jedes moderne QuickTime (7.x) ab. Dieses Repo
+automatisiert die korrekte Installation dieser alten Laufzeit und stabilisiert
+den Director-Projektor.
+
+## Welche Teile brauchen das
+
+| Teil | Datenträger | Video | Benötigtes QuickTime |
+|------|-------------|-------|----------------------|
+| **1** | `LOEWENZA` | QuickTime `.mov` | **QuickTime 2.1.2** (dieser Fix) |
+| **2** | `LZ_2`     | QuickTime (Installation auf Festplatte) | QuickTime 2.1.2 **oder** das mitgelieferte QuickTime 3 (`SETUP\TREIBER\QTW3`) |
+| **3** | `LOEWE3`   | QuickTime (Installation auf Festplatte) | QuickTime 2.1.2 (dieser Fix) |
+| 4–8  | — | **MPEG-1** über das QuickTime-6-Director-Xtra | **Nichts** — laufen mit bereits installiertem modernem QuickTime 7.x |
+
+> Die Teile **4–8 brauchen diesen Fix nicht.** Sie spielen MPEG-1 über das
+> `QT6Asset.x32`- / `QT3Asset.x32`-Director-Xtra ab und laufen mit einer
+> vorhandenen QuickTime-7.x-Installation. Nur **1–3** hängen am alten QuickTime 2.x.
+
+## Warum der mitgelieferte Installer allein scheitert
+
+`QUICKTIM\QT32.EXE` (QuickTime 2.1.2, 1996) installiert seine Laufzeit nach
+`C:\Windows`. **Ohne erhöhte Rechte** unter Win10/11 *virtualisiert* UAC diese
+Schreibzugriffe in den benutzereigenen `VirtualStore`, die Installation bricht ab
+(`RESULT.QTW → Complete=0`) mit der irreführenden Meldung:
+
+> *An operation could not be performed because a file handle could not be
+> opened … see the "FILES" command in your DOS manual.*
+
+**Mit erhöhten Rechten** landen die Schreibzugriffe im echten `C:\Windows`, und die
+Installation läuft durch. Das ist der Kern des Fixes. (Das 16-Bit-`QT16.EXE` läuft
+auf 64-Bit-Windows gar nicht — nur `QT32.EXE` ist nutzbar, und es liegt auf dem
+Datenträger von **Teil 1**.)
+
+## Voraussetzungen
+
+- 64-Bit-Windows 10 oder 11, Administratorrechte.
+- Der Datenträger / das ISO von **Teil 1** eingebunden (er enthält
+  `QUICKTIM\QT32.EXE`). Die Installation davon deckt die Teile 1, 2 und 3
+  systemweit ab — alle wollen dasselbe 2.1.2.
+- PowerShell 5.1+ (in Windows enthalten).
+
+## Verwendung
+
+```powershell
+# in einer erhöhten PowerShell, oder das Skript fordert die Rechte selbst an:
+Set-ExecutionPolicy -Scope Process Bypass -Force
+
+# 1) QuickTime-2.1.2-Laufzeit installieren (findet QT32.EXE auf eingebundenem Datenträger)
+.\scripts\Install-LoewenzahnQuickTime.ps1
+
+#    ...oder den Installer direkt angeben:
+.\scripts\Install-LoewenzahnQuickTime.ps1 -InstallerPath 'D:\QUICKTIM\QT32.EXE'
+
+# 2) Kompatibilitäts-Shims auf den Spiel-Projektor anwenden (für stabiles Video).
+#    Teil 1 läuft direkt von der CD:
+.\scripts\Set-ProjectorCompat.ps1 -Path 'D:\STARTW95.EXE'
+#    Teile 2/3 werden erst auf die Festplatte installiert (deren SETUP\AUTORUN
+#    ausführen), danach auf die installierte .exe zeigen, z. B.:
+.\scripts\Set-ProjectorCompat.ps1 -Path 'C:\Terzio\Loewenzahn2\<projektor>.exe'
+```
+
+Der Installer ist Apples originaler GUI-Assistent — auf **Continue → Install**
+klicken, wenn er erscheint. Das Skript wartet auf die Erfolgsmeldung und prüft
+anschließend, ob die Laufzeit-DLLs in `C:\Windows\SysWOW64` gelandet sind.
+
+## Was installiert / geändert wird
+
+- `C:\Windows\SysWOW64\`: `QTIM32.DLL` (Kern-Engine), `QTOLE32.DLL`,
+  `QTWMCI32.DLL`, `QTW32.CPL`, `QTWCP.HLP`
+- `C:\Windows\`: `QTW.INI`, `QTW32DEL.EXE` (Apples Deinstallationsprogramm)
+- `HKLM\…\AppCompatFlags\Layers`: `WIN98 DWM8And16BitMitigation 16BITCOLOR` auf dem
+  Projektor, den du an `Set-ProjectorCompat.ps1` übergibst
+- Eine Sicherung deines bestehenden QuickTime-Registry-Schlüssels wird unter
+  `%LOCALAPPDATA%\LoewenzahnQTFix\QuickTime-backup-<zeitstempel>.reg` abgelegt
+
+Deine QuickTime-7.x-Player-Installation bleibt erhalten; die 2.x-Laufzeit liegt
+daneben.
+
+## Rückgängig machen
+
+```powershell
+.\scripts\Uninstall-LoewenzahnQuickTime.ps1
+```
+
+Führt Apples `QTW32DEL.EXE` aus, entfernt die Projektor-Shims und stellt den
+gesicherten QuickTime-Registry-Schlüssel wieder her. Für einen garantiert
+sauberen Zustand danach QuickTime 7.7.9 neu installieren.
+
+## Bekannte Einschränkungen
+
+- **Die Videowiedergabe unter Win11 ist nicht perfekt.** Mit dem Fix startet
+  Teil 1 an der Versionssperre vorbei, Menü und Szenen werden gezeichnet, und
+  Videobilder *erscheinen* — aber der QuickTime-Videopfad von 1996 ist unter dem
+  modernen Desktop-Compositor wackelig, und der Projektor kann nach kurzer Zeit
+  instabil werden. Die Shims helfen deutlich, machen es aber nicht kugelsicher.
+- Für **zuverlässiges** Video bei den Teilen 1–3 diese in einer
+  **Windows-98/XP-VM** ausführen, wo `QT32.EXE` sauber installiert und die Spiele
+  normal laufen.
+- Die Clips lassen sich immer direkt ansehen: Die `.mov`-Dateien unter
+  `MEDIA\` / `MEDIA\VIDEOS\` öffnen in QuickTime 7 oder VLC.
+
+## Rechtliches
+
+Dieses Repository enthält **nur Skripte**. Es liefert keine Apple-Software mit. Die
+QuickTime-Laufzeit wird zur Laufzeit aus dem Original-Installer **auf deinen
+eigenen Datenträgern** entpackt. QuickTime ist © Apple Inc.; Löwenzahn ist ©
+Terzio/Tivola. Verwende ausschließlich rechtmäßig erworbene Medien.
+
+---
+
 # Löwenzahn QuickTime Fix (Windows 10/11)
 
 Get the early **Löwenzahn** CD‑ROMs (parts **1–3**, Terzio / Tivola, Macromedia

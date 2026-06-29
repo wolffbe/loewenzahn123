@@ -1,0 +1,11 @@
+# Never commit extracted Apple binaries or local backups
+*.reg
+*.exe
+*.dll
+*.qts
+*.qtx
+*.cpl
+*.iso
+RESULT.QTW
+QT$INST$.*
+QUICKTIM_local/

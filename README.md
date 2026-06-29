@@ -13,13 +13,19 @@ ausgeliefert wurden, und lehnen jedes moderne QuickTime (7.x) ab. Dieses Repo
 automatisiert die korrekte Installation dieser alten Laufzeit und stabilisiert
 den Director-Projektor.
 
+## 🎮 Spiel-Abbilder (ISO)
+
+- **Teil 1** (`LOEWENZA`): https://archive.org/details/LOEWENZA
+- **Teil 2** (`LZ_2`): https://archive.org/details/lz-2_20220119
+- **Teil 3** (`LOEWE3`): https://archive.org/details/loewe-3
+
 ## Welche Teile brauchen das
 
 | Teil | Datenträger | Video | Benötigtes QuickTime |
 |------|-------------|-------|----------------------|
-| **1** | `LOEWENZA` | QuickTime `.mov` | **QuickTime 2.1.2** (dieser Fix) |
-| **2** | `LZ_2`     | QuickTime (Installation auf Festplatte) | QuickTime 2.1.2 **oder** das mitgelieferte QuickTime 3 (`SETUP\TREIBER\QTW3`) |
-| **3** | `LOEWE3`   | QuickTime (Installation auf Festplatte) | QuickTime 2.1.2 (dieser Fix) |
+| **1** | [`LOEWENZA`](https://archive.org/details/LOEWENZA) | QuickTime `.mov` | **QuickTime 2.1.2** (dieser Fix) |
+| **2** | [`LZ_2`](https://archive.org/details/lz-2_20220119) | QuickTime (Installation auf Festplatte) | QuickTime 2.1.2 **oder** das mitgelieferte QuickTime 3 (`SETUP\TREIBER\QTW3`) |
+| **3** | [`LOEWE3`](https://archive.org/details/loewe-3) | QuickTime (Installation auf Festplatte) | QuickTime 2.1.2 (dieser Fix) |
 | 4–8  | — | **MPEG-1** über das QuickTime-6-Director-Xtra | **Nichts** — laufen mit bereits installiertem modernem QuickTime 7.x |
 
 > Die Teile **4–8 brauchen diesen Fix nicht.** Sie spielen MPEG-1 über das
@@ -132,13 +138,19 @@ These titles hard‑check for the **QuickTime 2.x** runtime they shipped with an
 reject any modern QuickTime (7.x). This repo automates installing that old
 runtime correctly and stabilising the Director projector.
 
+## 🎮 Disc images (ISO)
+
+- **Part 1** (`LOEWENZA`): https://archive.org/details/LOEWENZA
+- **Part 2** (`LZ_2`): https://archive.org/details/lz-2_20220119
+- **Part 3** (`LOEWE3`): https://archive.org/details/loewe-3
+
 ## Which parts need this
 
 | Part | Disc label | Video | QuickTime needed |
 |------|-----------|-------|------------------|
-| **1** | `LOEWENZA` | QuickTime `.mov` | **QuickTime 2.1.2** (this fix) |
-| **2** | `LZ_2`     | QuickTime (HD install) | QuickTime 2.1.2 **or** the bundled QuickTime 3 (`SETUP\TREIBER\QTW3`) |
-| **3** | `LOEWE3`   | QuickTime (HD install) | QuickTime 2.1.2 (this fix) |
+| **1** | [`LOEWENZA`](https://archive.org/details/LOEWENZA) | QuickTime `.mov` | **QuickTime 2.1.2** (this fix) |
+| **2** | [`LZ_2`](https://archive.org/details/lz-2_20220119) | QuickTime (HD install) | QuickTime 2.1.2 **or** the bundled QuickTime 3 (`SETUP\TREIBER\QTW3`) |
+| **3** | [`LOEWE3`](https://archive.org/details/loewe-3) | QuickTime (HD install) | QuickTime 2.1.2 (this fix) |
 | 4–8  | — | **MPEG‑1** via the QuickTime 6 Director Xtra | **Nothing** — they work with modern QuickTime 7.x already installed |
 
 > Parts **4–8 do not need this fix.** They switched to MPEG‑1 played through the

@@ -23,10 +23,19 @@ den Director-Projektor.
 
 | Teil | Datenträger | Video | Benötigtes QuickTime |
 |------|-------------|-------|----------------------|
-| **1** | [`LOEWENZA`](https://archive.org/details/LOEWENZA) | QuickTime `.mov` | **QuickTime 2.1.2** (dieser Fix) |
-| **2** | [`LZ_2`](https://archive.org/details/lz-2_20220119) | QuickTime (Installation auf Festplatte) | QuickTime 2.1.2 **oder** das mitgelieferte QuickTime 3 (`SETUP\TREIBER\QTW3`) |
-| **3** | [`LOEWE3`](https://archive.org/details/loewe-3) | QuickTime (Installation auf Festplatte) | QuickTime 2.1.2 (dieser Fix) |
+| **1** | [`LOEWENZA`](https://archive.org/details/LOEWENZA) | QuickTime `.mov` | **QuickTime 2.1.2** — Quelle des Fixes (32-Bit-`QT32.EXE`) |
+| **2** | [`LZ_2`](https://archive.org/details/lz-2_20220119) | QuickTime (Installation auf Festplatte) | QuickTime 2.1.2 — von Teil 1 installieren (siehe Hinweis) |
+| **3** | [`LOEWE3`](https://archive.org/details/loewe-3) | QuickTime (Installation auf Festplatte) | QuickTime 2.1.2 — von Teil 1 installieren (siehe Hinweis) |
 | 4–8  | — | **MPEG-1** über das QuickTime-6-Director-Xtra | **Nichts** — laufen mit bereits installiertem modernem QuickTime 7.x |
+
+> **Funktioniert das aus Teil 1, 2 und 3 unabhängig?** Nur **Teil 1** ist
+> eigenständig: er ist der einzige der drei mit einem **32-Bit**-Installer
+> (`QUICKTIM\QT32.EXE`), der auf 64-Bit-Windows läuft. Die Teile **2 und 3**
+> liefern nur **16-Bit**-Installer mit (sowohl ihr QuickTime 2.1.2 als auch das
+> QuickTime 3 unter `SETUP\TREIBER\QTW3`), die 64-Bit-Windows gar nicht startet —
+> sie können QuickTime also **nicht selbst** installieren. Sobald die Laufzeit
+> aber **von Teil 1** installiert ist, ist sie systemweit vorhanden und deckt
+> **alle drei** ab. Kurz: Teil-1-Datenträger zum Einrichten nötig, danach laufen 1–3.
 
 > Die Teile **4–8 brauchen diesen Fix nicht.** Sie spielen MPEG-1 über das
 > `QT6Asset.x32`- / `QT3Asset.x32`-Director-Xtra ab und laufen mit einer
@@ -148,10 +157,19 @@ runtime correctly and stabilising the Director projector.
 
 | Part | Disc label | Video | QuickTime needed |
 |------|-----------|-------|------------------|
-| **1** | [`LOEWENZA`](https://archive.org/details/LOEWENZA) | QuickTime `.mov` | **QuickTime 2.1.2** (this fix) |
-| **2** | [`LZ_2`](https://archive.org/details/lz-2_20220119) | QuickTime (HD install) | QuickTime 2.1.2 **or** the bundled QuickTime 3 (`SETUP\TREIBER\QTW3`) |
-| **3** | [`LOEWE3`](https://archive.org/details/loewe-3) | QuickTime (HD install) | QuickTime 2.1.2 (this fix) |
+| **1** | [`LOEWENZA`](https://archive.org/details/LOEWENZA) | QuickTime `.mov` | **QuickTime 2.1.2** — the fix's source (32‑bit `QT32.EXE`) |
+| **2** | [`LZ_2`](https://archive.org/details/lz-2_20220119) | QuickTime (HD install) | QuickTime 2.1.2 — install it from Part 1 (see note) |
+| **3** | [`LOEWE3`](https://archive.org/details/loewe-3) | QuickTime (HD install) | QuickTime 2.1.2 — install it from Part 1 (see note) |
 | 4–8  | — | **MPEG‑1** via the QuickTime 6 Director Xtra | **Nothing** — they work with modern QuickTime 7.x already installed |
+
+> **Does this work from parts 1, 2 and 3 independently?** Only **Part 1** is
+> self‑sufficient: it is the only one of the three with a **32‑bit** installer
+> (`QUICKTIM\QT32.EXE`) that runs on 64‑bit Windows. Parts **2 and 3** ship only
+> **16‑bit** installers (both their QuickTime 2.1.2 *and* the QuickTime 3 under
+> `SETUP\TREIBER\QTW3`), which 64‑bit Windows won't launch at all — so they
+> **cannot** install QuickTime themselves. But once the runtime is installed
+> **from Part 1**, it is system‑wide and covers **all three**. In short: the Part 1
+> disc is needed to set it up, after which 1–3 all run.
 
 > Parts **4–8 do not need this fix.** They switched to MPEG‑1 played through the
 > `QT6Asset.x32` / `QT3Asset.x32` Director Xtra and run fine against an existing
